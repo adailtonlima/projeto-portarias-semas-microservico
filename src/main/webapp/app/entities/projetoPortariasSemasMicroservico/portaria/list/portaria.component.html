@@ -1,0 +1,231 @@
+<div>
+  <h2 id="page-heading" data-cy="PortariaHeading">
+    <span>Portarias</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-portaria"
+        [routerLink]="['/projetoportariassemasmicroservico/portaria/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Create a new Portaria</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (portarias?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No Portarias found</span>
+    </div>
+  }
+
+  @if (portarias && portarias.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numero">
+              <div class="d-flex">
+                <span>Numero</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="data">
+              <div class="d-flex">
+                <span>Data</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dataInicio">
+              <div class="d-flex">
+                <span>Data Inicio</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dataFim">
+              <div class="d-flex">
+                <span>Data Fim</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ano">
+              <div class="d-flex">
+                <span>Ano</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="justificativaExclusao">
+              <div class="d-flex">
+                <span>Justificativa Exclusao</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span>Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedAt">
+              <div class="d-flex">
+                <span>Updated At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="deletedAt">
+              <div class="d-flex">
+                <span>Deleted At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="assunto.nome">
+              <div class="d-flex">
+                <span>Assunto</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="setor.nome">
+              <div class="d-flex">
+                <span>Setor</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="usuario.nome">
+              <div class="d-flex">
+                <span>Usuario</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="updatedBy.nome">
+              <div class="d-flex">
+                <span>Updated By</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="deletedBy.nome">
+              <div class="d-flex">
+                <span>Deleted By</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (portaria of portarias; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/projetoportariassemasmicroservico/portaria', portaria.id, 'view']">{{ portaria.id }}</a>
+              </td>
+              <td>{{ portaria.numero }}</td>
+              <td>{{ portaria.data | formatMediumDate }}</td>
+              <td>{{ portaria.dataInicio | formatMediumDate }}</td>
+              <td>{{ portaria.dataFim | formatMediumDate }}</td>
+              <td>{{ portaria.ano }}</td>
+              <td>{{ portaria.justificativaExclusao }}</td>
+              <td>{{ portaria.createdAt | formatMediumDatetime }}</td>
+              <td>{{ portaria.updatedAt | formatMediumDatetime }}</td>
+              <td>{{ portaria.deletedAt | formatMediumDatetime }}</td>
+              <td>
+                @if (portaria.assunto) {
+                  <div>
+                    <a [routerLink]="['/projetoportariassemasmicroservico/assunto', portaria.assunto.id, 'view']">{{
+                      portaria.assunto.nome
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (portaria.setor) {
+                  <div>
+                    <a [routerLink]="['/projetoportariassemasmicroservico/setor', portaria.setor.id, 'view']">{{ portaria.setor.nome }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (portaria.usuario) {
+                  <div>
+                    <a [routerLink]="['/projetoportariassemasmicroservico/usuario', portaria.usuario.id, 'view']">{{
+                      portaria.usuario.nome
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (portaria.updatedBy) {
+                  <div>
+                    <a [routerLink]="['/projetoportariassemasmicroservico/usuario', portaria.updatedBy.id, 'view']">{{
+                      portaria.updatedBy.nome
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (portaria.deletedBy) {
+                  <div>
+                    <a [routerLink]="['/projetoportariassemasmicroservico/usuario', portaria.deletedBy.id, 'view']">{{
+                      portaria.deletedBy.nome
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/projetoportariassemasmicroservico/portaria', portaria.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">View</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/projetoportariassemasmicroservico/portaria', portaria.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(portaria)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

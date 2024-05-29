@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (topico()) {
+      <div>
+        <h2 data-cy="topicoDetailsHeading"><span>Topico</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ topico()!.id }}</span>
+          </dd>
+          <dt><span>Titulo</span></dt>
+          <dd>
+            <span>{{ topico()!.titulo }}</span>
+          </dd>
+          <dt><span>Conteudo</span></dt>
+          <dd>
+            <span>{{ topico()!.conteudo }}</span>
+          </dd>
+          <dt><span>Ativo</span></dt>
+          <dd>
+            <span>{{ topico()!.ativo }}</span>
+          </dd>
+          <dt><span>Created At</span></dt>
+          <dd>
+            <span>{{ topico()!.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Updated At</span></dt>
+          <dd>
+            <span>{{ topico()!.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Deleted At</span></dt>
+          <dd>
+            <span>{{ topico()!.deletedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Ajudas</span></dt>
+          <dd>
+            @for (ajudas of topico()!.ajudas; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/projetoportariassemasmicroservico/ajuda', ajudas.id, 'view']">{{ ajudas?.titulo }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span>Assuntos</span></dt>
+          <dd>
+            @for (assuntos of topico()!.assuntos; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/projetoportariassemasmicroservico/assunto', assuntos.id, 'view']">{{ assuntos?.nome }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/projetoportariassemasmicroservico/topico', topico()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
