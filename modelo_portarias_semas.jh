@@ -1,0 +1,128 @@
+
+// 1 - ENTIDADES
+// - Não tem suporte para herança entre classes
+// - Não tem suporte para chaves compostos
+// - Assume todas as tabelas tem chave primaria numerica
+// - Nome de classes, atributos, metodos, segue o padrão CamelCase
+
+
+// 2 - Relacionamentos
+// - 1/N - Modelo base para relacionamentos
+// - Unidirecional é modelo ideal de relacionamento
+// - Assume que nome da chave estrangeira é nome do atributo definido com _id
+// Double
+// Integer
+// 
+
+entity Topico(topicos){
+	@Id id UUID
+    titulo String maxlength(1000) required
+    conteudo TextBlob 
+    
+    ativo Boolean
+    
+    createdAt ZonedDateTime required  // created_at 
+    updatedAt ZonedDateTime // updated_at 
+    deletedAt ZonedDateTime //
+}
+
+relationship ManyToMany {
+	Topico{ajudas(titulo)} to Ajuda{topicos(titulo)}
+    Topico{assuntos(nome)} to Assunto{topicos(titulo)}
+}
+
+
+entity Ajuda(ajudas) {
+	@Id id UUID
+    titulo String maxlength(1000) required
+    conteudo TextBlob 
+    
+    ativo Boolean
+    
+    createdAt ZonedDateTime required // created_at 
+    updatedAt ZonedDateTime // updated_at 
+    deletedAt ZonedDateTime //
+    
+}
+
+
+relationship ManyToOne {
+	Portaria{assunto(nome)} to Assunto //assunto_id
+    Portaria{setor(nome)} to Setor   
+    
+    Portaria{usuario(nome)} to Usuario
+    Portaria{updatedBy(nome)} to Usuario
+    Portaria{deletedBy(nome)} to Usuario    
+}
+
+
+entity Portaria(portarias)
+{	
+	numero Long required
+    data LocalDate
+    dataInicio LocalDate
+    dataFim LocalDate
+    ano Integer
+    justificativaExclusao String
+
+	//Assunto
+    //Setor
+    //Usuario - Criador
+    //Usuario - Atualiza
+    //Usuario - Deleta
+    
+    createdAt ZonedDateTime // created_at 
+    updatedAt ZonedDateTime // updated_at 
+    deletedAt ZonedDateTime // deleted_at 
+}
+
+entity Assunto(assuntos) {
+
+	nome String maxlength(1000) required
+    descricao TextBlob
+    
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
+
+}
+
+entity Setor(setores) {
+
+	nome String maxlength(1000) required
+    sigla String
+    
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
+
+}
+
+relationship ManyToOne {
+	Usuario{perfil(nome)} to Perfil   
+    Usuario{setor(nome)} to Setor   
+}
+
+// versao bidirecional
+//relationship OneToMany{
+	// Perfil{usuarios} to Usuario{perfil}
+//}
+
+entity Perfil(perfils)  {
+	nome String required  
+    descricao String
+}
+
+entity Usuario(usuarios)  {	
+	nome String maxlength(1000) required
+    login String
+    email String 
+    cpf String
+  
+    createdAt ZonedDateTime
+    updatedAt ZonedDateTime
+    deletedAt ZonedDateTime
+
+}
+
+

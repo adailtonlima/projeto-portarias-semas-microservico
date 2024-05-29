@@ -1,0 +1,37 @@
+{
+  "annotations": {
+    "changelogDate": "20240529142406"
+  },
+  "applications": "*",
+  "clientRootFolder": "projetoPortariasSemasMicroservico",
+  "databaseType": "sql",
+  "entityTableName": "setores",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "1000"
+    },
+    {
+      "fieldName": "sigla",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "deletedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "microserviceName": "projetoPortariasSemasMicroservico",
+  "name": "Setor",
+  "relationships": [],
+  "searchEngine": "no"
+}

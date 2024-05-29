@@ -1,0 +1,88 @@
+{
+  "annotations": {
+    "changelogDate": "20240529142404"
+  },
+  "applications": "*",
+  "clientRootFolder": "projetoPortariasSemasMicroservico",
+  "databaseType": "sql",
+  "entityTableName": "portarias",
+  "fields": [
+    {
+      "fieldName": "numero",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "data",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dataInicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dataFim",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "ano",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "justificativaExclusao",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "deletedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "microserviceName": "projetoPortariasSemasMicroservico",
+  "name": "Portaria",
+  "relationships": [
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "assunto",
+      "relationshipName": "assunto",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "setor",
+      "relationshipName": "setor",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "usuario",
+      "relationshipName": "usuario",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "usuario",
+      "relationshipName": "updatedBy",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nome",
+      "otherEntityName": "usuario",
+      "relationshipName": "deletedBy",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}
